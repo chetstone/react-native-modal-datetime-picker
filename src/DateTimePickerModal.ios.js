@@ -35,6 +35,7 @@ export class DateTimePickerModal extends React.PureComponent {
     onCancel: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
     onChange: PropTypes.func,
+    onChangeCustom: PropTypes.func,
     onHide: PropTypes.func,
     maximumDate: PropTypes.instanceOf(Date),
     minimumDate: PropTypes.instanceOf(Date),
@@ -83,9 +84,12 @@ export class DateTimePickerModal extends React.PureComponent {
     this.setState({ isPickerVisible: false });
   };
 
-  handleChange = (event, date) => {
+  handleChange = (event, date, ...rest) => {
     if (this.props.onChange) {
       this.props.onChange(date);
+    }
+    if (this.props.onChangeCustom) {
+      this.props.onChangeCustom(event, date, ...rest);
     }
     this.setState({ currentDate: date });
   };
